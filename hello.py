@@ -1,22 +1,25 @@
-import json
+
 from flask import Flask, jsonify, request , send_from_directory
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
-import csv
 import os
 from data import train
 from flask_pymongo import pymongo
 
 client = pymongo.MongoClient("mongodb://localhost:27017/")
-db = client.get_database('users')
+db = client.get_database('users')#database name
 
-coll = pymongo.collection.Collection(db,'signin')
+coll = pymongo.collection.Collection(db,'signin')#collection name
 
 
 app = Flask(__name__)
 cors = CORS(app)
 UPLOAD_FOLDER = './files'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER 
+
+@app.route("/")
+def home():
+    return "Success"
 
 @app.route('/register',methods=['POST'])
 
